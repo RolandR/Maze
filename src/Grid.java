@@ -18,7 +18,7 @@ public class Grid{
 			buildEmptyGrid();
 		}
 		
-		genRandomTraversal();
+		genRandomTraversal(0.3);
 		
 		print();
 	}
@@ -53,7 +53,7 @@ public class Grid{
 		}
 	}
 	
-	public void genRandomTraversal(){
+	public void genRandomTraversal(double holes){
 		get(1, 1).setUsed(true);
 		ArrayList<List<Cell>> possiblePaths = new ArrayList<List<Cell>>();
 		possiblePaths.add(Arrays.asList(get(1, 2), get(1, 3)));
@@ -90,61 +90,14 @@ public class Grid{
 					possiblePaths.add(Arrays.asList(get(target.x, target.y + 1), bottom));
 				}
 			} else {
-				
+				if(Math.random() <= holes){
+					target.setUsed(true);
+					passage.setUsed(true);
+				}
 			}
 			
 			possiblePaths.remove(currentId);
 		}
-		
-		
-		/*while(possiblePaths.size() != 0){
-			int currentId = (int)(Math.random() * possiblePaths.size());
-			Cell current = possiblePaths.get(currentId);
-			
-			int usedNeighborCount = 0;
-			
-			Cell left = get(current.x - 1, current.y);
-			if(left == null || left.isUsed){
-				usedNeighborCount++;
-			}
-			Cell right = get(current.x + 1, current.y);
-			if(right == null || right.isUsed){
-				usedNeighborCount++;
-			}
-			Cell top = get(current.x, current.y - 1);
-			if(top == null || top.isUsed){
-				usedNeighborCount++;
-			}
-			Cell bottom = get(current.x, current.y + 1);
-			if(bottom == null || bottom.isUsed){
-				usedNeighborCount++;
-			}
-			
-			if(usedNeighborCount > 1){
-				current.setUsed(false);
-			} else {
-				current.setUsed(true);
-				
-				if(!left.isPath && !left.isCorner){
-					possiblePaths.add(left);
-					left.setPath(true);
-				}
-				if(!right.isPath && !right.isCorner){
-					possiblePaths.add(right);
-					right.setPath(true);
-				}
-				if(!top.isPath && !top.isCorner){
-					possiblePaths.add(top);
-					top.setPath(true);
-				}
-				if(!bottom.isPath && !bottom.isCorner){
-					possiblePaths.add(bottom);
-					bottom.setPath(true);
-				}
-			}
-			
-			possiblePaths.remove(currentId);
-		}*/
 	}
 }
 

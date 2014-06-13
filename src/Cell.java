@@ -43,9 +43,9 @@ public class Cell{
 				if(isCorner){
 					symbol = "█";
 				} else if(x % 2 == 0){
-					symbol = "█";
+					symbol = "▓";
 				} else {
-					symbol = "█";
+					symbol = "▓";
 				}
 			}
 		} else if(isUsed){
