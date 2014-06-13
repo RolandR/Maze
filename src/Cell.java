@@ -2,6 +2,7 @@ public class Cell{
 	public boolean isUsed = false; // Used or unused
 	public boolean isWall = false; // whether it can be a wall piece. This is not related to isUsed.
 	public boolean isPath = false; // whether or not it is part of an experimental path.
+	public boolean isCorner = false;
 	
 //	+-+-+-+
 //	|X|X|X|
@@ -22,6 +23,9 @@ public class Cell{
 		
 		if((x % 2 == 0) || (y % 2 == 0)){
 			this.isWall = true;
+			if((x % 2 == 0) && (y % 2 == 0)){
+				isCorner = true;
+			}
 		}
 		
 		updateSymbol();
@@ -32,18 +36,16 @@ public class Cell{
 	}
 	
 	private void updateSymbol(){
-		if(isPath){
-			symbol = "?";
-		} else if(isWall){
+		if(isWall){
 			if(isUsed){
 				symbol = " ";
 			} else {
-				if((x % 2 == 0) && (y % 2 == 0)){
-					symbol = "+";
+				if(isCorner){
+					symbol = "█";
 				} else if(x % 2 == 0){
-					symbol = "|";
+					symbol = "█";
 				} else {
-					symbol = "-";
+					symbol = "█";
 				}
 			}
 		} else if(isUsed){
